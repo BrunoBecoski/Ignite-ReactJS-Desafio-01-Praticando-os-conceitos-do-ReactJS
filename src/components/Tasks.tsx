@@ -1,3 +1,5 @@
+import { Task } from './Task';
+
 import  styles from './Tasks.module.css';
 
 export function Tasks() {
@@ -14,10 +16,16 @@ export function Tasks() {
         </div>
       </div>
 
-      <div className={styles.empty}>
+      <Task />
+      <Task />
+      <Task />
+      <Task />
+      <Task />
+
+      {/* <div className={styles.empty}>
         <strong>Você ainda não tem tarefas cadastradas</strong>
         <p>Crie tarefas e organize seus itens a fazer</p>
-      </div>
+      </div> */}
     </div>
   );
 }

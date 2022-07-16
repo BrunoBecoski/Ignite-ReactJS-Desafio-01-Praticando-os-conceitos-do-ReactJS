@@ -38,6 +38,10 @@
   transition: background .1s;
 }
 
+.button img {
+  width: 1rem;
+}
+
 .button:hover {
   background: var(--blue);
 }
