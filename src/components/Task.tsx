@@ -1,16 +1,19 @@
-import { useState } from 'react';
-
 import styles from './Task.module.css';
 
-export function Task() {
-  const [checked, setChecked] = useState(false);
+interface TaskProps {
+  task: {
+    checked: boolean;
+    text: string;
+  }
+}
 
+export function Task({ task }: TaskProps) {
   return (
-    <div className={`${styles.task} ${checked ? styles.task_checked : styles.task_unchecked}`}>
-      <button className={styles.checkbox} onClick={() => setChecked(!checked)}>
-        <div className={ checked ? styles.radio_checked : styles.radio_unchecked }>
+    <div className={`${styles.task} ${task.checked ? styles.task_checked : styles.task_unchecked}`}>
+      <button className={styles.checkbox} onClick={() => {}}>
+        <div className={ task.checked ? styles.radio_checked : styles.radio_unchecked }>
           {
-            checked &&
+            task.checked &&
             <svg viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.43107 0.342093L4.09914 4.67403L1.61667 2.19156L0.780762 3.02747L4.09914 6.34584L9.26698 1.178L8.43107 0.342093Z" fill="#F2F2F2"/>
             </svg>  
@@ -18,8 +21,8 @@ export function Task() {
         </div>  
       </button>
 
-      <p className={ checked ? styles.text_checked : styles.text_unchecked }>
-        Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.
+      <p className={ task.checked ? styles.text_checked : styles.text_unchecked }>
+        {task.text}
       </p>
 
       <button className={styles.delete}>
