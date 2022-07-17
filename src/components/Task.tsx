@@ -1,16 +1,24 @@
 import styles from './Task.module.css';
 
-interface TaskProps {
-  task: {
-    checked: boolean;
-    text: string;
-  }
+interface Task {
+  id: string;
+  checked: boolean;
+  text: string;
 }
 
-export function Task({ task }: TaskProps) {
+interface TaskProps {
+  task: Task,
+  checkedTask: (id: string) => void;
+}
+
+export function Task({ task, checkedTask }: TaskProps) {
+  function handleCheckTask() {
+    checkedTask(task.id);
+  }
+
   return (
     <div className={`${styles.task} ${task.checked ? styles.task_checked : styles.task_unchecked}`}>
-      <button className={styles.checkbox} onClick={() => {}}>
+      <button className={styles.checkbox} onClick={handleCheckTask}>
         <div className={ task.checked ? styles.radio_checked : styles.radio_unchecked }>
           {
             task.checked &&

@@ -2,15 +2,26 @@ import { Task } from './Task';
 
 import  styles from './Tasks.module.css';
 
-interface TasksProps {
-  tasks: {
-    checked: boolean;
-    text: string;
-  }[]
+interface Task {
+  id: string;
+  checked: boolean;
+  text: string;
 }
 
-export function Tasks({ tasks }: TasksProps) {
-  const createdTasks = tasks.length; 
+interface TasksProps {
+  tasks: Task[],
+  checkedTask: (id: string) => void;
+}
+
+export function Tasks({ tasks, checkedTask }: TasksProps) {
+  const createdTasks = tasks.length;
+
+  const tasksCompleted = tasks.reduce((acc, task) => {
+    if(task.checked) {
+      return acc + 1
+    }
+    return acc;
+  }, 0);
 
   return (
     <div className={styles.tasks}>
@@ -21,14 +32,18 @@ export function Tasks({ tasks }: TasksProps) {
         </div>
         <div className={styles.done}>
           <strong>Concluídas</strong>
-          <span>2 de {createdTasks}</span>
+          <span>{tasksCompleted} de {createdTasks}</span>
         </div>
       </div>
 
       { createdTasks
         ? 
           tasks.map(task => (
-            <Task key={task.text} task={task} />
+            <Task 
+              key={task.id} 
+              task={task} 
+              checkedTask={checkedTask}
+            />
           ))
         :
           <div className={styles.empty}>

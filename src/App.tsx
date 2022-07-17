@@ -9,6 +9,7 @@ import styles from './App.module.css';
 import './global.css';
 
 interface Task {
+  id: string;
   checked: boolean,
   text: string;
 }
@@ -18,6 +19,7 @@ export function App() {
 
   function createTask(text: string) {
     const newTask = {
+      id: Date.now().toString(),
       checked: false,
       text
     }
@@ -25,12 +27,28 @@ export function App() {
     setTasks((state) => [...state, newTask]);
   }
 
+  function checkedTask(id: string) {
+    const updatedTasks = tasks.map(task => {
+      if(task.id === id) {
+        return {
+          id: task.id,
+          checked: !task.checked,
+          text: task.text
+        }
+      } else {
+        return task;
+      }
+    });
+
+    setTasks(updatedTasks);
+  }
+
   return (
     <div>
       <Header />
       <main className={styles.main}>
         <NewTask createTask={createTask} />
-        <Tasks tasks={tasks} />
+        <Tasks tasks={tasks} checkedTask={checkedTask} />
       </main>
     </div>
   );
