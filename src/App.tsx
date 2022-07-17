@@ -43,12 +43,20 @@ export function App() {
     setTasks(updatedTasks);
   }
 
+  function deleteTask(id: string) {
+    const updatedTasks = tasks.filter(task => {
+      return task.id !== id;
+    })
+
+    setTasks(updatedTasks);
+  }
+
   return (
     <div>
       <Header />
       <main className={styles.main}>
         <NewTask createTask={createTask} />
-        <Tasks tasks={tasks} checkedTask={checkedTask} />
+        <Tasks tasks={tasks} checkedTask={checkedTask} deleteTask={deleteTask}/>
       </main>
     </div>
   );

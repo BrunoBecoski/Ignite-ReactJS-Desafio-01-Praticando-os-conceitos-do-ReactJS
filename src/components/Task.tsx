@@ -9,16 +9,24 @@ interface Task {
 interface TaskProps {
   task: Task,
   checkedTask: (id: string) => void;
+  deleteTask: (id: string) => void;
 }
 
-export function Task({ task, checkedTask }: TaskProps) {
+export function Task({ task, checkedTask, deleteTask }: TaskProps) {
   function handleCheckTask() {
     checkedTask(task.id);
   }
 
+  function handleDeleteTask() {
+    deleteTask(task.id);
+  }
+
   return (
     <div className={`${styles.task} ${task.checked ? styles.task_checked : styles.task_unchecked}`}>
-      <button className={styles.checkbox} onClick={handleCheckTask}>
+      <button 
+        className={styles.checkbox}
+        onClick={handleCheckTask}
+      >
         <div className={ task.checked ? styles.radio_checked : styles.radio_unchecked }>
           {
             task.checked &&
@@ -33,7 +41,10 @@ export function Task({ task, checkedTask }: TaskProps) {
         {task.text}
       </p>
 
-      <button className={styles.delete}>
+      <button 
+        className={styles.delete}
+        onClick={handleDeleteTask}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

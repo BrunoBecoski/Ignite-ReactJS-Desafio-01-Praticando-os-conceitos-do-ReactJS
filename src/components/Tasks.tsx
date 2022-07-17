@@ -11,9 +11,10 @@ interface Task {
 interface TasksProps {
   tasks: Task[],
   checkedTask: (id: string) => void;
+  deleteTask: (id: string) => void;
 }
 
-export function Tasks({ tasks, checkedTask }: TasksProps) {
+export function Tasks({ tasks, checkedTask, deleteTask }: TasksProps) {
   const createdTasks = tasks.length;
 
   const tasksCompleted = tasks.reduce((acc, task) => {
@@ -43,6 +44,7 @@ export function Tasks({ tasks, checkedTask }: TasksProps) {
               key={task.id} 
               task={task} 
               checkedTask={checkedTask}
+              deleteTask={deleteTask}
             />
           ))
         :
